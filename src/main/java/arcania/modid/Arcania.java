@@ -11,6 +11,6 @@ public class Arcania implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
+		//Very important Sachen die ich mache
 	}
 }
