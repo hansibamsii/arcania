@@ -1,5 +1,7 @@
 package arcania.modid;
 
+import arcania.modid.block.ArcaniaBlocks;
+import arcania.modid.item.ArcaniaItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -12,5 +14,7 @@ public class Arcania implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		//Very important Sachen die ich mache
+		ArcaniaItems.registerModItems();
+		ArcaniaBlocks.registerModBlocks();
 	}
 }
