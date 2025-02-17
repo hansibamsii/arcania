@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 20,
+  "group": "",
+  "ingredient": {
+    "item": "arcania:green_orb_ore"
+  },
+  "result": {
+    "id": "arcania:green_orb"
+  }
+}
