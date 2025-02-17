@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {"item": "minecraft:oak_planks"},
+    "X": {"item":  "arcania:red_orb"},
+    "Y": {"item":  "arcania:blue_orb"},
+    "Z": {"item":  "arcania:green_orb"}
+  },
+  "pattern":[
+    "###",
+    "XYZ",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "arcania:spell_table"
+  }
+}

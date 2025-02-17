@@ -18,6 +18,14 @@ public class ArcaniaBlocks {
             .requiresTool()
             .sounds(BlockSoundGroup.WOOD)));
 
+    public static final Block RED_ORB_ORE = registerBlock("red_orb_ore", new Block(AbstractBlock.Settings.create().strength(4f)
+            .requiresTool()
+            .sounds(BlockSoundGroup.STONE)));
+
+    public static final Block GREEN_ORB_ORE = registerBlock("green_orb_ore", new Block(AbstractBlock.Settings.create().strength(4f)
+            .requiresTool()
+            .sounds(BlockSoundGroup.STONE)));
+
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, Identifier.of(Arcania.MOD_ID, name), block);
@@ -30,10 +38,13 @@ public class ArcaniaBlocks {
     }
 
     public static void registerModBlocks() {
-        Arcania.LOGGER.info("Registriert Blöcke für"+Arcania.MOD_ID);
+        Arcania.LOGGER.info("Registriert Blöcke für "+Arcania.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(fabricItemGroupEntries -> {
             fabricItemGroupEntries.add(ArcaniaBlocks.SPELL_TABLE);
+            fabricItemGroupEntries.add(ArcaniaBlocks.RED_ORB_ORE);
+            fabricItemGroupEntries.add(ArcaniaBlocks.GREEN_ORB_ORE);
+
         });
     }
 }

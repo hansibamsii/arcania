@@ -2,5 +2,12 @@
   "item.arcania.red_orb": "Red Orb",
   "item.arcania.blue_orb": "Blue Orb",
   "item.arcania.green_orb": "Green Orb",
-  "block.arcania.spell_table": "Spell Table"
+  "item.arcania.spell": "Blank Spell",
+
+
+  "block.arcania.spell_table": "Spell Table",
+  "block.arcania.red_orb_ore": "Red Orb Ore",
+  "block.arcania.green_orb_ore": "Green Orb Ore",
+
+  "itemgroup.arcania.arcania_group": "Arcania"
 }
