@@ -1,6 +1,7 @@
 package arcania.modid.item;
 
 import  arcania.modid.Arcania;
+import arcania.modid.item.custom.SpellItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -16,7 +17,7 @@ public class ArcaniaItems {
     public static Item RED_ORB = registerItem("red_orb", new Item(new Item.Settings()));
     public static Item BLUE_ORB = registerItem("blue_orb", new Item(new Item.Settings()));
     public static Item GREEN_ORB = registerItem("green_orb", new Item(new Item.Settings()));
-    public static Item SPELL = registerItem("spell", new Item(new Item.Settings()));
+    public static Item SPELL = registerItem("spell", new SpellItem(new Item.Settings()));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(Arcania.MOD_ID, name), item);
