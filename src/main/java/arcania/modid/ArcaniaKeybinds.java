@@ -19,13 +19,7 @@ public class ArcaniaKeybinds {
                 "category.arcania.tree" // Eigene Kategorie
         ));
 
-        // Event-Listener
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (openTreeKey.wasPressed()) {
-                MinecraftClient.getInstance().setScreen(
-                        new Skilltree(Text.empty())
-                );
-            }
-        });
+
+
     }
 }
