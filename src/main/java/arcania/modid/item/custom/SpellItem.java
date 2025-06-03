@@ -38,7 +38,9 @@ public class SpellItem extends Item {
             fireball.shoot(lookDirection);
 
             // Add the fireball to the world
-            world.spawnEntity(fireball);
+            System.out.println("Attempting to spawn fireball...");
+            boolean success = world.spawnEntity(fireball);
+            System.out.println("Spawn success: " + success);
         }
 
         return TypedActionResult.success(user.getStackInHand(hand));

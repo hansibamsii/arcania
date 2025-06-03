@@ -9,9 +9,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
@@ -174,8 +174,14 @@ public class FireBallEntity extends SpellProjectile {
     }
 
     @Override
-    protected RegistryEntry.Reference<SoundEvent> getHitSound() {
-        return SoundEvents.ENTITY_GENERIC_EXPLODE;
+    protected SoundEvent getHitSound() {
+        return null;
+    }
+
+
+    @Override
+    protected ItemStack getDefaultItemStack() {
+        return null;
     }
 
     @Override

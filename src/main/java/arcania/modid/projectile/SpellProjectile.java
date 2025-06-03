@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.nbt.NbtCompound;
@@ -11,7 +12,6 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -30,16 +30,8 @@ public abstract class SpellProjectile extends ProjectileEntity {
         super(entityType, world);
         this.setNoGravity(!hasGravity);
     }
-    
-    public SpellProjectile(EntityType<? extends SpellProjectile> entityType, LivingEntity owner, World world) {
-        super(entityType, owner, world);
-        this.setNoGravity(!hasGravity);
-    }
-    
-    public SpellProjectile(EntityType<? extends SpellProjectile> entityType, double x, double y, double z, World world) {
-        super(entityType, x, y, z, world);
-        this.setNoGravity(!hasGravity);
-    }
+
+
     
     @Override
     public void tick() {
@@ -85,7 +77,7 @@ public abstract class SpellProjectile extends ProjectileEntity {
         }
         
         if (!this.getWorld().isClient) {
-            this.playHitSound();
+
             this.discard();
         }
     }
@@ -96,7 +88,7 @@ public abstract class SpellProjectile extends ProjectileEntity {
     protected abstract void spawnTrailParticles();
     protected abstract void spawnImpactParticles(Vec3d pos);
     protected abstract ParticleEffect getTrailParticle();
-    protected abstract RegistryEntry.Reference<SoundEvent> getHitSound();
+    protected abstract SoundEvent getHitSound();
     
     // Utility methods
     protected void dealDamage(Entity target, float damageAmount) {
@@ -128,7 +120,7 @@ public abstract class SpellProjectile extends ProjectileEntity {
     }
     
     // Getters and setters
-    public float getDamage() { 
+    public double getDamage() {
         return damage; 
     }
     
@@ -151,15 +143,7 @@ public abstract class SpellProjectile extends ProjectileEntity {
     public void setSpeed(double speed) { 
         this.speed = speed; 
     }
-    
-    protected void playHitSound() {
-        SoundEvent sound = getHitSound();
-        if (sound != null) {
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), 
-                sound, this.getSoundCategory(), 1.0F, 1.0F);
-        }
-    }
-    
+
     // NBT serialization
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
@@ -181,10 +165,10 @@ public abstract class SpellProjectile extends ProjectileEntity {
         this.hasGravity = nbt.getBoolean("HasGravity");
         this.setNoGravity(!hasGravity);
     }
-    
+
     // Network packet
     @Override
-    public Packet<ClientPlayPacketListener> createSpawnPacket() {
+    public Packet<? extends ClientPlayPacketListener> createSpawnPacket() {
         return new EntitySpawnS2CPacket(this);
     }
     
