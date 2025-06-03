@@ -1,0 +1,29 @@
+{
+  "parent": "arcania:fire_element",
+  "criteria": {
+    "got_green": {
+      "conditions": {
+        "items": [
+          {
+            "items": "arcania:green_orb"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": "Me personally, I dig it",
+    "icon": {
+      "count": 1,
+      "id": "arcania:green_orb"
+    },
+    "title": "Elemental Novice"
+  },
+  "requirements": [
+    [
+      "got_green"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

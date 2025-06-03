@@ -1,0 +1,29 @@
+{
+  "parent": "arcania:earth_element",
+  "criteria": {
+    "got_blue": {
+      "conditions": {
+        "items": [
+          {
+            "items": "arcania:blue_orb"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": "Shit that's cold",
+    "icon": {
+      "count": 1,
+      "id": "arcania:blue_orb"
+    },
+    "title": "Elemental Master"
+  },
+  "requirements": [
+    [
+      "got_blue"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,5 +1,6 @@
 package arcania.modid.item.custom;
 
+import arcania.modid.projectile.FireBallEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ExplosiveProjectileEntity;
@@ -31,11 +32,6 @@ public class SpellItem extends Item {
             double z = user.getRotationVec(1.0F).z;
 
             // Create Fireball entity
-            FireballEntity fireball = new FireballEntity(world, user, new Vec3d(x, y, z), 7);
-            fireball.refreshPositionAndAngles(user.getX(), user.getEyeY(), user.getZ(), user.getYaw(), user.getPitch());
-            fireball.setVelocity(x * 1.5, y * 1.5, z * 1.5); // Adjust speed as needed
-            fireball.setOwner(user); // Sets the player as the owner
-            fireball.getWorld().spawnEntity(fireball);
 
 
         }
