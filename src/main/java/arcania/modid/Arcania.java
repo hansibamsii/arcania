@@ -1,6 +1,7 @@
 package arcania.modid;
 
 import arcania.modid.block.ArcaniaBlocks;
+import arcania.modid.entity.ArcaniaEntityTypes;
 import arcania.modid.item.ArcaniaItemGroup;
 import arcania.modid.item.ArcaniaItems;
 import net.fabricmc.api.ModInitializer;
@@ -14,10 +15,11 @@ public class Arcania implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		//Very important Sachen die ich mache
+		// Very important Sachen die ich mache
 		ArcaniaItemGroup.registerItemGroup();
 
 		ArcaniaItems.registerModItems();
 		ArcaniaBlocks.registerModBlocks();
+		ArcaniaEntityTypes.registerEntityTypes(); // Add this line
 	}
 }
