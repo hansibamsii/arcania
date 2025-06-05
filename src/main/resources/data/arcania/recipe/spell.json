@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": {"item": "arcania:red_orb"},
+    "S": {"item": "minecraft:stick"},
+    "P": {"item": "minecraft:paper"}
+  },
+  "pattern": [
+    " R ",
+    " S ",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "arcania:spell"
+  }
+}

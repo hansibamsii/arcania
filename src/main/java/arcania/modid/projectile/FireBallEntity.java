@@ -9,7 +9,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
@@ -41,7 +40,8 @@ public class FireBallEntity extends SpellProjectile {
     }
 
     public FireBallEntity(EntityType<? extends FireBallEntity> entityType, double x, double y, double z, World world) {
-        super(entityType, x, y, z, world);
+        super(entityType, world);
+        this.setPosition(x, y, z);
         this.damage = 8.0F;
         this.speed = 1.5D;
         this.hasGravity = false;
@@ -51,11 +51,6 @@ public class FireBallEntity extends SpellProjectile {
         this(ArcaniaEntityTypes.FIREBALL, world);
         this.setOwner(owner);
         this.setPosition(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
-    }
-
-    @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker();
     }
 
     @Override
@@ -71,6 +66,7 @@ public class FireBallEntity extends SpellProjectile {
             }
 
             this.createExplosion(entityHitResult.getPos());
+            this.spawnImpactParticles(entityHitResult.getPos());
         }
     }
 
@@ -81,6 +77,7 @@ public class FireBallEntity extends SpellProjectile {
             BlockPos blockPos = blockHitResult.getBlockPos();
 
             this.createExplosion(hitPos);
+            this.spawnImpactParticles(hitPos);
 
             if (createsFire) {
                 this.createFireArea(blockPos);
@@ -188,20 +185,7 @@ public class FireBallEntity extends SpellProjectile {
         return null;
     }
 
-
-
-    protected ItemStack getDefaultItemStack() {
-        return null;
-    }
-
-    @Override
-    protected void onCollision(net.minecraft.util.hit.HitResult hitResult) {
-        if (!this.getWorld().isClient) {
-            this.spawnImpactParticles(hitResult.getPos());
-        }
-        super.onCollision(hitResult);
-    }
-
+    // Setters for customization
     public void setExplosionPower(float power) {
         this.explosionPower = power;
     }

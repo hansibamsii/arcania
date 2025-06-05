@@ -5,12 +5,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.BlockHitResult;
@@ -40,8 +37,9 @@ public abstract class SpellProjectile extends PersistentProjectileEntity {
     }
 
     public SpellProjectile(EntityType<? extends SpellProjectile> entityType, double x, double y, double z, World world) {
-        super(entityType, x, y, z, world);
+        super(entityType, world);
         this.spellProperties = new SpellProperties();
+        this.setPosition(x, y, z);
         initializeGravity();
     }
 
@@ -51,41 +49,39 @@ public abstract class SpellProjectile extends PersistentProjectileEntity {
 
     @Override
     public void tick() {
-        super.tick();
-
-        // Age check
+        // Age check first
         if (this.age >= maxAge) {
             this.discard();
             return;
         }
 
-        // Movement and collision
+        // Check for collisions
         HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
         if (hitResult.getType() != HitResult.Type.MISS) {
             this.onCollision(hitResult);
+            return;
         }
 
-        // Update position
+        // Update position based on velocity
         Vec3d velocity = this.getVelocity();
         this.setPosition(this.getX() + velocity.x, this.getY() + velocity.y, this.getZ() + velocity.z);
 
-        // Spawn particles
+        // Spawn particles on client side
         if (this.getWorld().isClient) {
             spawnTrailParticles();
         }
 
-        // Update velocity for gravity simulation (if enabled)
+        // Apply gravity if enabled
         if (hasGravity) {
             this.setVelocity(velocity.x, velocity.y - 0.03D, velocity.z);
         }
 
         this.velocityDirty = true;
+        this.age++;
     }
 
     @Override
     protected void onCollision(HitResult hitResult) {
-        super.onCollision(hitResult);
-
         if (hitResult.getType() == HitResult.Type.ENTITY) {
             this.onEntityHit((EntityHitResult) hitResult);
         } else if (hitResult.getType() == HitResult.Type.BLOCK) {
@@ -132,6 +128,12 @@ public abstract class SpellProjectile extends PersistentProjectileEntity {
 
         Vec3d direction = new Vec3d(dx, dy, dz).normalize();
         this.shoot(direction.multiply(velocity));
+    }
+
+    // Required overrides from PersistentProjectileEntity
+    @Override
+    protected ItemStack getDefaultItemStack() {
+        return ItemStack.EMPTY;
     }
 
     // Getters and setters
@@ -181,13 +183,8 @@ public abstract class SpellProjectile extends PersistentProjectileEntity {
         this.setNoGravity(!hasGravity);
     }
 
-
-
     @Override
     protected boolean canHit(Entity entity) {
         return super.canHit(entity) && !entity.equals(this.getOwner());
-    }
-
-    protected void initDataTracker() {
     }
 }
