@@ -33,8 +33,18 @@ public class FireBallEntity extends SpellProjectile {
         this.hasGravity = false;
     }
 
-    public FireBallEntity(World world) {
-        this(ArcaniaEntityTypes.FIREBALL, world);
+    public FireBallEntity(EntityType<? extends FireBallEntity> entityType, LivingEntity owner, World world) {
+        super(entityType, owner, world);
+        this.damage = 8.0F;
+        this.speed = 1.5D;
+        this.hasGravity = false;
+    }
+
+    public FireBallEntity(EntityType<? extends FireBallEntity> entityType, double x, double y, double z, World world) {
+        super(entityType, x, y, z, world);
+        this.damage = 8.0F;
+        this.speed = 1.5D;
+        this.hasGravity = false;
     }
 
     public FireBallEntity(World world, LivingEntity owner) {
@@ -45,7 +55,7 @@ public class FireBallEntity extends SpellProjectile {
 
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
-        // Empty implementation - no custom data to track
+        super.initDataTracker();
     }
 
     @Override
@@ -179,7 +189,7 @@ public class FireBallEntity extends SpellProjectile {
     }
 
 
-    @Override
+
     protected ItemStack getDefaultItemStack() {
         return null;
     }
